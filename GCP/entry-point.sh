@@ -2,6 +2,8 @@
 
 set -e
 
+
+export GCP_PROJECT=dae-intern-2024-04
 # Verify that all required variables are set
 if [[ -z "${GCP_PROJECT}" ]]; then
     echo "Error: GCP_PROJECT not set"
@@ -9,32 +11,48 @@ if [[ -z "${GCP_PROJECT}" ]]; then
 fi
 
 # Fetch secrets from Secret Manager in CGP
-export MLFLOW_TRACKING_USERNAME="$(python3 /app/get_secret.py --project="${GCP_PROJECT}" --secret=mlflow_tracking_username)"
-export MLFLOW_TRACKING_PASSWORD="$(python3 /app/get_secret.py --project="${GCP_PROJECT}" --secret=mlflow_tracking_password)"
-export ARTIFACT_URL="$(python3 /app/get_secret.py --project="${GCP_PROJECT}" --secret=mlflow_artifact_url)"
+export MLFLOW_TRACKING_USERNAME="$(python3 get_secret.py --project="${GCP_PROJECT}" --secret=dae-intern-mlflow-username)"
+export MLFLOW_TRACKING_PASSWORD="$(python3 get_secret.py --project="${GCP_PROJECT}" --secret=dae-intern-mlflow-password)"
+export ARTIFACT_URL="$(python3 get_secret.py --project="${GCP_PROJECT}" --secret=dae-intern-mlflow-artifact-url)"
 if [[ -z "${DATABASE_URL}" ]]; then # Allow overriding for local deployment
-    export DATABASE_URL="$(python3 /app/get_secret.py --project="${GCP_PROJECT}" --secret=mlflow_database_url)"
+    export DATABASE_URL="$(python3 get_secret.py --project="${GCP_PROJECT}" --secret=dae-intern-mlflow-database-url)"
 fi
 
 # Verify that all required variables are set
+# if [[ -z "${MLFLOW_TRACKING_USERNAME}" ]]; then
+#     echo "Error: MLFLOW_TRACKING_USERNAME not set"
+#     exit 1
+# fi
+
+# if [[ -z "${MLFLOW_TRACKING_PASSWORD}" ]]; then
+#     echo "Error: MLFLOW_TRACKING_PASSWORD not set"
+#     exit 1
+# fi
+
+# if [[ -z "${ARTIFACT_URL}" ]]; then
+#     echo "Error: ARTIFACT_URL not set"
+#     exit 1
+# fi
+
+# if [[ -z "${DATABASE_URL}" ]]; then
+#     echo "Error: DATABASE_URL not set"
+#     exit 1
+# fi
+
 if [[ -z "${MLFLOW_TRACKING_USERNAME}" ]]; then
-    echo "Error: MLFLOW_TRACKING_USERNAME not set"
-    exit 1
+    MLFLOW_TRACKING_USERNAME=dea-intern-202404
 fi
 
 if [[ -z "${MLFLOW_TRACKING_PASSWORD}" ]]; then
-    echo "Error: MLFLOW_TRACKING_PASSWORD not set"
-    exit 1
+    MLFLOW_TRACKING_PASSWORD=Arizona123!
 fi
 
 if [[ -z "${ARTIFACT_URL}" ]]; then
-    echo "Error: ARTIFACT_URL not set"
-    exit 1
+    ARTIFACT_URL=gs://dae-intern-mlflow-artifact-url
 fi
 
 if [[ -z "${DATABASE_URL}" ]]; then
-    echo "Error: DATABASE_URL not set"
-    exit 1
+    DATABASE_URL=postgresql+psycopg2://dae-intern-2024-04:TokyoTech1998!@/dae-intern?host=/cloudsql/dae-intern-2024-04:us-central1:macromill-intern-mlflow-trail
 fi
 
 if [[ -z "${PORT}" ]]; then

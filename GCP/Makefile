@@ -1,8 +1,9 @@
-IMAGE_NAME=mlflow-gcp
-GCP_PROJECT=mlflow-gcp
-AR_REGISTRY_NAME=mlflow-gcp
-AR_REGION=europe-west2
+IMAGE_NAME=dae-intern-mlflow
+GCP_PROJECT=dae-intern-2024-04
+AR_REGISTRY_NAME=dae-intern-2024
+AR_REGION=us-central1
 VERSION=latest
+
 build:
 	docker build -t "${IMAGE_NAME}" .
 	
