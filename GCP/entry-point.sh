@@ -18,26 +18,6 @@ if [[ -z "${DATABASE_URL}" ]]; then # Allow overriding for local deployment
     export DATABASE_URL="$(python3 get_secret.py --project="${GCP_PROJECT}" --secret=dae-intern-mlflow-database-url)"
 fi
 
-# Verify that all required variables are set
-# if [[ -z "${MLFLOW_TRACKING_USERNAME}" ]]; then
-#     echo "Error: MLFLOW_TRACKING_USERNAME not set"
-#     exit 1
-# fi
-
-# if [[ -z "${MLFLOW_TRACKING_PASSWORD}" ]]; then
-#     echo "Error: MLFLOW_TRACKING_PASSWORD not set"
-#     exit 1
-# fi
-
-# if [[ -z "${ARTIFACT_URL}" ]]; then
-#     echo "Error: ARTIFACT_URL not set"
-#     exit 1
-# fi
-
-# if [[ -z "${DATABASE_URL}" ]]; then
-#     echo "Error: DATABASE_URL not set"
-#     exit 1
-# fi
 
 if [[ -z "${MLFLOW_TRACKING_USERNAME}" ]]; then
     MLFLOW_TRACKING_USERNAME=dea-intern-202404
